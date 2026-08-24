@@ -6,13 +6,46 @@
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <h1>Sudoku Game</h1>
-  <div id="sudoku-board"></div>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Daily logic practice</p>
+        <h1>Sudoku Game</h1>
+      </div>
+      <button id="dark-mode-toggle" class="theme-toggle" type="button" aria-pressed="false">Dark mode</button>
+    </header>
+    <div id="sudoku-board" aria-label="Sudoku puzzle"></div>
   <div class="controls">
+    <label for="difficulty">Difficulty</label>
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium" selected>Medium</option>
+      <option value="hard">Hard</option>
+    </select>
     <button id="new-game">New Game</button>
     <button id="check-solution">Check Solution</button>
     <span id="message"></span>
+    <form id="score-form" hidden>
+      <label for="player-name">Your name</label>
+      <input id="player-name" name="player-name" type="text" maxlength="40" required>
+      <button type="submit">Save Score</button>
+    </form>
   </div>
+  <section id="leaderboard" aria-labelledby="leaderboard-title">
+    <h2 id="leaderboard-title">Top 10</h2>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Name</th>
+          <th scope="col">Time</th>
+          <th scope="col">Difficulty</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body"></tbody>
+    </table>
+  </section>
+  </main>
   <script src="/static/main.js"></script>
 </body>
 </html>
