@@ -50,6 +50,15 @@ def test_is_safe_rejects_row_column_and_box_conflicts():
     assert sudoku_logic.is_safe(board, 1, 1, 6)
 
 
+def test_find_incorrect_cells_returns_changed_coordinates():
+    solution = [list(range(1, sudoku_logic.SIZE + 1)) for _ in range(sudoku_logic.SIZE)]
+    board = sudoku_logic.deep_copy(solution)
+    board[0][0] = sudoku_logic.EMPTY
+    board[4][7] = sudoku_logic.EMPTY
+
+    assert sudoku_logic.find_incorrect_cells(board, solution) == [[0, 0], [4, 7]]
+
+
 def test_fill_board_creates_a_complete_valid_solution():
     board = sudoku_logic.create_empty_board()
 

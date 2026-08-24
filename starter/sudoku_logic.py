@@ -6,10 +6,37 @@ EMPTY = 0
 MAX_REMOVAL_ATTEMPTS = 10
 
 def deep_copy(board):
+    """Return an independent board copy for operations that may mutate it."""
     return copy.deepcopy(board)
 
 def create_empty_board():
     return [[EMPTY for _ in range(SIZE)] for _ in range(SIZE)]
+
+
+def validate_board(board):
+    """Raise ValueError unless board is a 9x9 grid containing integers 0-9."""
+    if not isinstance(board, list) or len(board) != SIZE:
+        raise ValueError('board must be a 9x9 grid')
+    if any(not isinstance(row, list) or len(row) != SIZE for row in board):
+        raise ValueError('board must be a 9x9 grid')
+    if any(
+        isinstance(cell, bool) or not isinstance(cell, int) or not 0 <= cell <= SIZE
+        for row in board
+        for cell in row
+    ):
+        raise ValueError('board cells must be integers from 0 to 9')
+
+
+def find_incorrect_cells(board, solution):
+    """Return coordinates where a board differs from the supplied solution."""
+    validate_board(board)
+    validate_board(solution)
+    return [
+        [row, col]
+        for row in range(SIZE)
+        for col in range(SIZE)
+        if board[row][col] != solution[row][col]
+    ]
 
 def is_safe(board, row, col, num):
     # Check row and column
